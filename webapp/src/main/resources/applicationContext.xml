@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!-- 启用spring 注解 -->
+    <context:annotation-config/>
+    <!--加载数据库配置文件-->
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:datasource.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--&lt;!&ndash;创建jdbc数据源 &ndash;&gt;-->
+    <!--<bean id="targetDataSource" class="org.apache.commons.dbcp.BasicDataSource"-->
+          <!--destroy-method="close">-->
+        <!--<property name="driverClassName" value="${jdbc.driverClass}"/>-->
+        <!--<property name="url" value="${jdbc.jdbcUrl}"/>-->
+        <!--<property name="username" value="${jdbc.user}"/>-->
+        <!--<property name="password" value="${jdbc.password}"/>-->
+        <!--<property name="initialSize" value="10"/>-->
+        <!--<property name="maxActive" value="50"/>-->
+        <!--<property name="maxIdle" value="20"/>-->
+        <!--<property name="minIdle" value="5"/>-->
+        <!--&lt;!&ndash; 设置在自动回收超时连接的时候打印连接的超时错误 &ndash;&gt;-->
+        <!--<property name="logAbandoned" value="true"/>-->
+        <!--&lt;!&ndash; 设置自动回收超时连接 &ndash;&gt;-->
+        <!--<property name="removeAbandoned" value="true"/>-->
+        <!--&lt;!&ndash; 自动回收超时时间(以秒数为单位) &ndash;&gt;-->
+        <!--<property name="removeAbandonedTimeout" value="180"/>-->
+        <!--&lt;!&ndash; 超时等待时间以毫秒为单位 &ndash;&gt;-->
+        <!--<property name="maxWait" value="10000"/>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash; mybatis创建sessionFactory &ndash;&gt;-->
+    <!--<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+        <!--<property name="dataSource" ref="targetDataSource"/>-->
+        <!--<property name="typeAliasesPackage" value="com.rents.entities.*"/>-->
+        <!--<property name="mapperLocations" value="classpath*:mapper/*Mapper.xml"/>-->
+        <!--<property name="configLocation" value="classpath:mybatis-config.xml"/>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash; 手动注入commonDao &ndash;&gt;-->
+    <!--<bean id="commonDao" class="com.rents.dao.CommonDao">-->
+        <!--<property name="sqlSessionFactory" ref="sessionFactory"/>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash; 使用开源框架BaseMapper，更详细的解释，见http://git.oschina.net/free/Mapper &ndash;&gt;-->
+    <!--<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">-->
+        <!--<property name="basePackage" value="com.rents.dao"/>-->
+        <!--<property name="markerInterface" value="com.rents.dao.BaseDao"/>-->
+    <!--</bean>-->
+
+    <!-- 使用annotation 自动注册bean -->
+    <context:component-scan base-package="com.wx">
+        <!-- 不扫描controller注解 -->
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+    <!--&lt;!&ndash; 事物支持 &ndash;&gt;-->
+    <!--<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+        <!--<property name="dataSource" ref="targetDataSource"/>-->
+    <!--</bean>-->
+
+    <!--<tx:annotation-driven transaction-manager="txManager"/>-->
+</beans>

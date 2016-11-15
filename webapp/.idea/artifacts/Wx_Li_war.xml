@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Wx_Li:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="com.wx-li.war">
+      <element id="artifact" artifact-name="Wx_Li:war exploded" />
+    </root>
+  </artifact>
+</component>
