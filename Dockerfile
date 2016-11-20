@@ -4,9 +4,9 @@ MAINTAINER saymagic "jie_r_0912@163.com"
 
 # 安装JDK与nginx
 RUN apt-get update
-RUN apt-get install openjdk-7-jre -y
-RUN apt-get install openjdk-7-jdk -y
-RUN apt-get install nginx -y
+RUN apt-get install openjdk-7-jre
+RUN apt-get install openjdk-7-jdk
+RUN apt-get install nginx
 
 #拷贝nginx配置文件
 ADD ./etc/nginx-conf /etc/nginx/conf.d
